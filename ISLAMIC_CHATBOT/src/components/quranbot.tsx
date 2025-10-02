@@ -36,9 +36,14 @@ const QuranBot: React.FC = () => {
     initializeService();
   }, []);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+ const scrollToBottom = () => {
+  if (messagesEndRef.current) {
+    const container = messagesEndRef.current.closest('.messages-container');
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }
+};
 
   useEffect(() => {
     scrollToBottom();
