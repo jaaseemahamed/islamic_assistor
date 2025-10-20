@@ -1,8 +1,16 @@
+
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
+
 const Home = () => {
   const navigate = useNavigate();
+
+  // Handle navigation to chatbot
+  const handleNavigate = () => {
+    console.log('Button clicked - navigating to /chat');
+    navigate('/chat');
+  };
 
   return (
     <div className="home-container">
@@ -31,48 +39,15 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">🕌</div>
-            <h3>Explore the Quran</h3>
-            <p>Search through verses and understand their meanings</p>
-          </div>
-          
-          <div className="feature-card">
-            <div className="feature-icon">📜</div>
-            <h3>Study Hadith</h3>
-            <p>Discover the teachings and sayings of Prophet Muhammad (ﷺ)</p>
-          </div>
-          
-          <div className="feature-card">
-            <div className="feature-icon">🔍</div>
-            <h3>Smart Search</h3>
-            <p>Find relevant verses and hadiths by topic or keyword</p>
-          </div>
-          
-          <div className="feature-card eco-card">
-            <div className="feature-icon">🌍</div>
-            <h3>Eco-Friendly Learning</h3>
-            <p>Paperless knowledge sharing for a sustainable future</p>
-          </div>
-        </div>
-
         <button 
           className="cta-button"
-          onClick={() => navigate('/chat')}
+          onClick={handleNavigate}
+          type="button"
         >
           <span className="button-icon">🌿</span>
           Let's Learn Quran & Hadith
           <span className="button-arrow">→</span>
         </button>
-
-        <div className="environmental-impact">
-          <p className="impact-title">🌱 Our Green Commitment</p>
-          <p className="impact-text">
-            By choosing digital learning, you're helping save paper and reduce carbon footprint. 
-            Every search here is a step towards sustainable knowledge sharing.
-          </p>
-        </div>
       </div>
     </div>
   );
