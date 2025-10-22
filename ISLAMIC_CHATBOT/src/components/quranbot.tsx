@@ -19,26 +19,43 @@ const QuranBot: React.FC = () => {
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Critical: Fix iOS viewport height issue
+  // CRITICAL: Aggressive mobile viewport fix
   useEffect(() => {
+    // Set CSS custom property for viewport height
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
     
     setVh();
-    window.addEventListener('resize', setVh);
-    window.addEventListener('orientationchange', setVh);
     
-    // Prevent body scroll
+    // Handle all resize events
+    const resizeHandler = () => {
+      setVh();
+    };
+    
+    window.addEventListener('resize', resizeHandler);
+    window.addEventListener('orientationchange', resizeHandler);
+    
+    // iOS specific - wait for viewport to settle
+    setTimeout(setVh, 100);
+    setTimeout(setVh, 300);
+    setTimeout(setVh, 500);
+    
+    // Prevent body scroll and lock viewport
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.width = '100%';
     document.body.style.height = '100%';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    
+    // Prevent pull-to-refresh on mobile
+    document.body.style.overscrollBehavior = 'none';
     
     return () => {
-      window.removeEventListener('resize', setVh);
-      window.removeEventListener('orientationchange', setVh);
+      window.removeEventListener('resize', resizeHandler);
+      window.removeEventListener('orientationchange', resizeHandler);
     };
   }, []);
 
@@ -63,7 +80,9 @@ const QuranBot: React.FC = () => {
     if (messagesEndRef.current) {
       const container = messagesEndRef.current.closest('.messages-container');
       if (container) {
-        container.scrollTop = container.scrollHeight;
+        setTimeout(() => {
+          container.scrollTop = container.scrollHeight;
+        }, 100);
       }
     }
   };
@@ -170,63 +189,6 @@ const QuranBot: React.FC = () => {
     }
   };
 
-  // Critical inline styles for mobile
-  const containerStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-    maxHeight: '100vh',
-    width: '100%',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    overflow: 'hidden'
-  };
-
-  const headerStyle: React.CSSProperties = {
-    flexShrink: 0,
-    flexGrow: 0,
-    overflowY: 'auto',
-    maxHeight: '40vh'
-  };
-
-  const messagesStyle: React.CSSProperties = {
-    flex: '1 1 auto',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    WebkitOverflowScrolling: 'touch',
-    minHeight: 0
-  };
-
-  const inputContainerStyle: React.CSSProperties = {
-    flexShrink: 0,
-    flexGrow: 0,
-    position: 'relative',
-    zIndex: 100,
-    minHeight: '60px'
-  };
-
-  const inputWrapperStyle: React.CSSProperties = {
-    display: 'flex',
-    gap: '0.5rem',
-    alignItems: 'center',
-    flexWrap: 'nowrap'
-  };
-
-  const inputStyle: React.CSSProperties = {
-    flex: '1 1 auto',
-    minWidth: 0,
-    fontSize: '16px'
-  };
-
-  const buttonStyle: React.CSSProperties = {
-    flexShrink: 0,
-    flexGrow: 0,
-    minWidth: 'fit-content'
-  };
-
   if (isLoading) {
     return (
       <div className="loading-screen">
@@ -258,8 +220,28 @@ const QuranBot: React.FC = () => {
   }
 
   return (
-    <div className="chat-container" style={containerStyle}>
-      <div className="chat-header" style={headerStyle}>
+    <div className="chat-container" style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      width: '100vw',
+      maxHeight: '100vh',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflow: 'hidden',
+      margin: 0,
+      padding: 0
+    }}>
+      <div className="chat-header" style={{
+        flexShrink: 0,
+        flexGrow: 0,
+        overflowY: 'auto',
+        maxHeight: '35vh',
+        WebkitOverflowScrolling: 'touch'
+      }}>
         <div className="header-content">
           <div className="bismillah-container">
             <p className="bismillah-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
@@ -308,7 +290,14 @@ const QuranBot: React.FC = () => {
         </div>
       </div>
 
-      <div className="messages-container" style={messagesStyle}>
+      <div className="messages-container" style={{
+        flex: '1 1 0',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+        minHeight: 0,
+        position: 'relative'
+      }}>
         <div className="messages-wrapper">
           {showBookmarks ? (
             <div className="bookmarks-view">
@@ -544,8 +533,27 @@ const QuranBot: React.FC = () => {
         </div>
       </div>
 
-      <div className="input-container" style={inputContainerStyle}>
-        <div className="input-wrapper" style={inputWrapperStyle}>
+      <div className="input-container" style={{
+        flexShrink: 0,
+        flexGrow: 0,
+        position: 'sticky',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        backgroundColor: 'white',
+        borderTop: '2px solid #e0e0e0',
+        boxShadow: '0 -2px 10px rgba(0,0,0,0.1)',
+        padding: '12px 16px',
+        minHeight: '70px'
+      }}>
+        <div className="input-wrapper" style={{
+          display: 'flex',
+          gap: '8px',
+          alignItems: 'center',
+          flexWrap: 'nowrap',
+          width: '100%'
+        }}>
           <input
             type="text"
             value={input}
@@ -554,23 +562,48 @@ const QuranBot: React.FC = () => {
             placeholder="Ask about Quran verses or Hadiths..."
             disabled={isProcessing || showBookmarks}
             className="chat-input"
-            style={inputStyle}
+            style={{
+              flex: '1 1 auto',
+              minWidth: 0,
+              fontSize: '16px',
+              padding: '12px 16px',
+              borderRadius: '25px',
+              border: '2px solid #dee2e6',
+              outline: 'none',
+              backgroundColor: '#f8f9fa'
+            }}
           />
           <button
             onClick={() => handleUserInput()}
             disabled={isProcessing || !input.trim() || showBookmarks}
             className="send-button"
-            style={buttonStyle}
+            style={{
+              flexShrink: 0,
+              flexGrow: 0,
+              minWidth: 'fit-content',
+              padding: '12px 20px',
+              borderRadius: '25px',
+              border: 'none',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              fontWeight: '700',
+              fontSize: '14px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              minHeight: '44px'
+            }}
           >
             {isProcessing ? (
               <>
                 <span className="spinner-small"></span>
-                Searching...
+                <span>Searching...</span>
               </>
             ) : (
               <>
                 <span className="search-icon-btn">🔍</span>
-                Search
+                <span>Search</span>
               </>
             )}
           </button>
