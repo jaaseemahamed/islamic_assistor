@@ -1,5 +1,13 @@
 /* Premium QuranBot Styles - Fully Responsive */
+.chat-header,
+.input-container {
+  flex-shrink: 0 !important;
+}
 
+.chat-container {
+  height: 100vh !important;
+  height: 100dvh !important;
+}
 * {
   margin: 0;
   padding: 0;
