@@ -1,13 +1,6 @@
-/* Premium QuranBot Styles - Fully Responsive */
-.chat-header,
-.input-container {
-  flex-shrink: 0 !important;
-}
+/* Premium QuranBot Styles - Fully Responsive - MOBILE FIXED */
 
-.chat-container {
-  height: 100vh !important;
-  height: 100dvh !important;
-}
+/* CRITICAL: Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -27,20 +20,32 @@
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* CRITICAL FIX: Ensure html and body don't cause overflow */
 html, body {
   height: 100%;
+  width: 100%;
   overflow: hidden;
   margin: 0;
   padding: 0;
+  position: fixed;
+  overscroll-behavior: none;
 }
 
+/* CRITICAL FIX: Chat container proper flex layout */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-height: 100vh; /* ADD THIS */
+  height: 100dvh; /* Use dynamic viewport height for mobile */
+  max-height: 100vh;
+  max-height: 100dvh;
+  width: 100%;
   background: var(--primary-gradient);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
 }
 
@@ -53,6 +58,7 @@ html, body {
   background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   animation: pulse 15s ease-in-out infinite;
   pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes pulse {
@@ -175,15 +181,17 @@ html, body {
   transform: translateY(-1px);
 }
 
-/* Header */
+/* CRITICAL FIX: Header - must not grow */
 .chat-header {
   background: var(--primary-gradient);
   color: white;
-  padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2rem);
+  padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
   box-shadow: var(--shadow-lg);
   position: relative;
   z-index: 10;
   backdrop-filter: blur(10px);
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .header-content {
@@ -199,13 +207,13 @@ html, body {
 
 .bismillah-container {
   text-align: center;
-  margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
-  padding-bottom: clamp(0.8rem, 2vw, 1.2rem);
+  margin-bottom: clamp(0.6rem, 1.5vw, 1.2rem);
+  padding-bottom: clamp(0.6rem, 1.5vw, 1.2rem);
   border-bottom: 2px solid rgba(255, 255, 255, 0.15);
 }
 
 .bismillah-arabic {
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
   font-weight: 600;
   margin: 0 0 0.5rem 0;
   direction: rtl;
@@ -215,7 +223,7 @@ html, body {
 }
 
 .bismillah-english {
-  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
   opacity: 0.95;
   margin: 0;
   font-weight: 300;
@@ -226,13 +234,13 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.5rem, 2vw, 0.8rem);
-  margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
+  gap: clamp(0.5rem, 1.5vw, 0.8rem);
+  margin-bottom: clamp(0.4rem, 1vw, 0.8rem);
   flex-wrap: wrap;
 }
 
 .header-icon {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
   animation: bounce 2s ease-in-out infinite;
 }
 
@@ -242,7 +250,7 @@ html, body {
 }
 
 .header-title {
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: clamp(1.3rem, 3.5vw, 2rem);
   margin: 0;
   font-weight: 800;
   letter-spacing: -0.5px;
@@ -252,8 +260,8 @@ html, body {
 .header-subtitle {
   text-align: center;
   opacity: 0.9;
-  margin: 0 0 clamp(0.8rem, 2vw, 1.2rem) 0;
-  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin: 0 0 clamp(0.6rem, 1.5vw, 1.2rem) 0;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
   font-weight: 300;
 }
 
@@ -263,13 +271,13 @@ html, body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: clamp(0.8rem, 2vw, 1rem);
-  margin-top: clamp(1rem, 2vw, 1.2rem);
+  gap: clamp(0.6rem, 1.5vw, 1rem);
+  margin-top: clamp(0.8rem, 1.5vw, 1.2rem);
 }
 
 .filter-controls {
   display: flex;
-  gap: clamp(0.8rem, 2vw, 1rem);
+  gap: clamp(0.6rem, 1.5vw, 1rem);
   flex-wrap: wrap;
   flex: 1;
 }
@@ -278,20 +286,20 @@ html, body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
   font-weight: 500;
   white-space: nowrap;
 }
 
 .filter-select {
-  padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2vw, 1rem);
+  padding: clamp(0.4rem, 1.2vw, 0.6rem) clamp(0.7rem, 1.8vw, 1rem);
   border-radius: 12px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   color: white;
   cursor: pointer;
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
   font-weight: 500;
   transition: var(--transition-smooth);
   min-width: 100px;
@@ -312,10 +320,10 @@ html, body {
   backdrop-filter: blur(10px);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(1rem, 3vw, 1.5rem);
+  padding: clamp(0.5rem, 1.2vw, 0.7rem) clamp(1rem, 2.5vw, 1.5rem);
   border-radius: 50px;
   cursor: pointer;
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
   font-weight: 600;
   transition: var(--transition-smooth);
   white-space: nowrap;
@@ -328,15 +336,18 @@ html, body {
   box-shadow: var(--shadow-md);
 }
 
-/* Messages Container */
+/* CRITICAL FIX: Messages Container - must flex properly */
 .messages-container {
-  flex: 1;
+  flex: 1 1 auto;
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: clamp(1rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
+  padding: clamp(0.8rem, 2vw, 2rem) clamp(0.5rem, 1.5vw, 1rem);
   position: relative;
   z-index: 1;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .messages-wrapper {
@@ -348,12 +359,12 @@ html, body {
 /* Empty State */
 .empty-state {
   text-align: center;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 2.5vw, 2rem);
   animation: fadeIn 0.6s ease-out;
 }
 
 .empty-message {
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.8rem);
   color: #495057;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -361,26 +372,26 @@ html, body {
 
 .empty-hint {
   color: #6c757d;
-  margin-bottom: clamp(1.2rem, 3vw, 1.8rem);
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  margin-bottom: clamp(1rem, 2.5vw, 1.8rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
 }
 
 .suggestion-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(0.6rem, 2vw, 1rem);
+  gap: clamp(0.5rem, 1.5vw, 1rem);
   justify-content: center;
-  margin-top: clamp(1rem, 3vw, 1.5rem);
+  margin-top: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .suggestion-chip {
   background: white;
   color: #667eea;
   border: 2px solid #667eea;
-  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem);
+  padding: clamp(0.6rem, 1.8vw, 0.8rem) clamp(1rem, 2.5vw, 1.5rem);
   border-radius: 50px;
   cursor: pointer;
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
   font-weight: 600;
   transition: var(--transition-smooth);
   box-shadow: var(--shadow-sm);
@@ -399,7 +410,7 @@ html, body {
 
 /* Message Rows */
 .message-row {
-  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
   animation: slideInMessage 0.4s ease-out;
 }
 
@@ -422,7 +433,7 @@ html, body {
 .user-message {
   background: var(--primary-gradient);
   color: white;
-  padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1rem, 3vw, 1.8rem);
+  padding: clamp(0.8rem, 1.8vw, 1.2rem) clamp(1rem, 2.5vw, 1.8rem);
   border-radius: 24px 24px 6px 24px;
   max-width: min(600px, 85%);
   box-shadow: var(--shadow-md);
@@ -432,7 +443,7 @@ html, body {
 
 .user-message p {
   margin: 0;
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
   line-height: 1.6;
 }
 
@@ -440,7 +451,7 @@ html, body {
 .results-container {
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 2vw, 1.2rem);
+  gap: clamp(1rem, 1.8vw, 1.2rem);
 }
 
 .result-card {
@@ -458,12 +469,12 @@ html, body {
 }
 
 .result-header {
-  padding: clamp(1rem, 2.5vw, 1.5rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid;
-  gap: clamp(0.5rem, 2vw, 1rem);
+  gap: clamp(0.5rem, 1.5vw, 1rem);
   flex-wrap: wrap;
 }
 
@@ -482,26 +493,26 @@ html, body {
 .header-info {
   display: flex;
   align-items: center;
-  gap: clamp(0.5rem, 2vw, 0.8rem);
+  gap: clamp(0.5rem, 1.5vw, 0.8rem);
   flex: 1;
   min-width: 0;
 }
 
 .result-icon {
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   flex-shrink: 0;
 }
 
 .result-title {
   font-weight: 700;
-  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .action-buttons {
   display: flex;
-  gap: clamp(0.4rem, 1.5vw, 0.6rem);
+  gap: clamp(0.4rem, 1.2vw, 0.6rem);
   flex-shrink: 0;
 }
 
@@ -511,10 +522,10 @@ html, body {
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(0.7rem, 2vw, 1rem);
+  padding: clamp(0.5rem, 1.2vw, 0.7rem) clamp(0.7rem, 1.8vw, 1rem);
   border-radius: 12px;
   cursor: pointer;
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   transition: var(--transition-smooth);
   box-shadow: var(--shadow-sm);
 }
@@ -543,21 +554,21 @@ html, body {
 }
 
 .result-body {
-  padding: clamp(1rem, 3vw, 1.8rem);
+  padding: clamp(1rem, 2.5vw, 1.8rem);
 }
 
 .section-label {
-  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+  font-size: clamp(0.75rem, 1.6vw, 0.85rem);
   color: #6c757d;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  margin-bottom: clamp(0.4rem, 1.5vw, 0.6rem);
+  margin-bottom: clamp(0.4rem, 1.2vw, 0.6rem);
   font-weight: 700;
 }
 
 .translation-section,
 .arabic-section {
-  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .arabic-section:last-child {
@@ -566,7 +577,7 @@ html, body {
 
 .translation-text,
 .hadith-text {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   line-height: 1.8;
   color: #212529;
   margin: 0;
@@ -574,7 +585,7 @@ html, body {
 }
 
 .arabic-text {
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   line-height: 2.2;
   color: #212529;
   direction: rtl;
@@ -585,10 +596,10 @@ html, body {
 }
 
 .hadith-category {
-  margin-top: clamp(0.8rem, 2vw, 1.2rem);
-  padding-top: clamp(0.8rem, 2vw, 1.2rem);
+  margin-top: clamp(0.8rem, 1.8vw, 1.2rem);
+  padding-top: clamp(0.8rem, 1.8vw, 1.2rem);
   border-top: 2px solid #e9ecef;
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
   color: #6c757d;
   font-style: italic;
   font-weight: 500;
@@ -598,7 +609,7 @@ html, body {
 .error-message-card {
   background: white;
   border-radius: 20px;
-  padding: clamp(1rem, 3vw, 1.8rem);
+  padding: clamp(1rem, 2.5vw, 1.8rem);
   box-shadow: var(--shadow-md);
   border-left: 5px solid #dc3545;
 }
@@ -606,44 +617,44 @@ html, body {
 .error-header {
   display: flex;
   align-items: flex-start;
-  gap: clamp(0.8rem, 2vw, 1.2rem);
-  margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+  gap: clamp(0.8rem, 1.8vw, 1.2rem);
+  margin-bottom: clamp(0.8rem, 1.8vw, 1.2rem);
 }
 
 .error-icon-small {
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   flex-shrink: 0;
 }
 
 .error-text {
   color: #dc3545;
   margin: 0;
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
   line-height: 1.6;
   font-weight: 500;
 }
 
 .error-suggestions {
-  margin-top: clamp(1rem, 2vw, 1.2rem);
-  padding-top: clamp(1rem, 2vw, 1.2rem);
+  margin-top: clamp(1rem, 1.8vw, 1.2rem);
+  padding-top: clamp(1rem, 1.8vw, 1.2rem);
   border-top: 2px solid #e9ecef;
 }
 
 .suggestions-title {
   color: #495057;
-  margin-bottom: clamp(0.6rem, 2vw, 1rem);
+  margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
   font-weight: 700;
-  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
 }
 
 /* Processing Message */
 .processing-message {
   background: white;
-  padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1rem, 3vw, 1.8rem);
+  padding: clamp(0.8rem, 1.8vw, 1.2rem) clamp(1rem, 2.5vw, 1.8rem);
   border-radius: 24px;
   display: flex;
   align-items: center;
-  gap: clamp(0.6rem, 2vw, 1rem);
+  gap: clamp(0.6rem, 1.5vw, 1rem);
   box-shadow: var(--shadow-md);
   max-width: fit-content;
   animation: pulse-message 1.5s ease-in-out infinite;
@@ -655,8 +666,8 @@ html, body {
 }
 
 .spinner-small {
-  width: clamp(18px, 4vw, 24px);
-  height: clamp(18px, 4vw, 24px);
+  width: clamp(18px, 3.5vw, 24px);
+  height: clamp(18px, 3.5vw, 24px);
   border: 3px solid #f3f3f3;
   border-top: 3px solid #667eea;
   border-radius: 50%;
@@ -665,7 +676,7 @@ html, body {
 }
 
 .processing-message span {
-  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
   color: #495057;
   font-weight: 500;
 }
@@ -682,19 +693,19 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: clamp(1.5rem, 3vw, 2rem);
-  padding: clamp(1rem, 3vw, 1.5rem);
+  margin-bottom: clamp(1.2rem, 2.5vw, 2rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
   background: white;
   border-radius: 20px;
   box-shadow: var(--shadow-md);
-  gap: clamp(0.8rem, 2vw, 1rem);
+  gap: clamp(0.8rem, 1.8vw, 1rem);
   flex-wrap: wrap;
 }
 
 .bookmarks-header h2 {
   margin: 0;
   color: #212529;
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.8rem);
   font-weight: 800;
 }
 
@@ -702,12 +713,12 @@ html, body {
   background: var(--primary-gradient);
   color: white;
   border: none;
-  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem);
+  padding: clamp(0.6rem, 1.8vw, 0.8rem) clamp(1rem, 2.5vw, 1.5rem);
   border-radius: 50px;
   cursor: pointer;
   transition: var(--transition-smooth);
   font-weight: 600;
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
   box-shadow: var(--shadow-sm);
   white-space: nowrap;
 }
@@ -720,37 +731,41 @@ html, body {
 .empty-bookmarks {
   text-align: center;
   color: #6c757d;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  padding: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  padding: clamp(1.5rem, 4vw, 3rem);
   background: white;
   border-radius: 20px;
   box-shadow: var(--shadow-md);
   line-height: 1.6;
 }
 
-/* Input Container */
+/* CRITICAL FIX: Input Container - must always be visible */
 .input-container {
   background: white;
-  padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+  padding: clamp(0.7rem, 1.8vw, 1.5rem) clamp(0.8rem, 2vw, 2rem);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 10;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-top: 1px solid #e9ecef;
 }
 
 .input-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: clamp(0.6rem, 2vw, 1rem);
-  align-items: stretch;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .chat-input {
-  flex: 1;
-  padding: clamp(0.9rem, 2.5vw, 1.2rem) clamp(1rem, 3vw, 1.8rem);
+  flex: 1 1 auto;
+  padding: clamp(0.7rem, 1.8vw, 1.2rem) clamp(0.9rem, 2.5vw, 1.8rem);
   border: 2px solid #dee2e6;
   border-radius: 50px;
-  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
   outline: none;
   transition: var(--transition-smooth);
   background: #f8f9fa;
@@ -778,19 +793,21 @@ html, body {
   background: var(--primary-gradient);
   color: white;
   border: none;
-  padding: clamp(0.9rem, 2.5vw, 1.2rem) clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(0.7rem, 1.8vw, 1.2rem) clamp(1.2rem, 3vw, 2.5rem);
   border-radius: 50px;
-  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.4rem, 1.5vw, 0.6rem);
+  gap: clamp(0.3rem, 1.2vw, 0.6rem);
   transition: var(--transition-smooth);
   white-space: nowrap;
   box-shadow: var(--shadow-md);
   flex-shrink: 0;
+  flex-grow: 0;
+  min-width: fit-content;
 }
 
 .send-button:hover:not(:disabled) {
@@ -808,7 +825,7 @@ html, body {
 }
 
 .search-icon-btn {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
 }
 
 /* Scrollbar Styling */
@@ -831,44 +848,351 @@ html, body {
   background: linear-gradient(180deg, #5568d3 0%, #653a8b 100%);
 }
 
-/* Responsive Design - Mobile First */
+/* ============================================
+   MOBILE FIXES - CRITICAL SECTION
+   ============================================ */
 
-/* Small Mobile Devices */
+/* Mobile Devices (480px and below) */
 @media (max-width: 480px) {
+  /* Force proper viewport */
+  .chat-container {
+    height: 100vh;
+    height: 100dvh;
+    min-height: -webkit-fill-available;
+  }
+  
+  /* Compact header for mobile */
+  .chat-header {
+    padding: 0.7rem 0.8rem;
+  }
+  
+  .bismillah-container {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .bismillah-arabic {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .bismillah-english {
+    font-size: 0.75rem;
+  }
+  
+  .header-title-wrapper {
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .header-icon {
+    font-size: 1.4rem;
+  }
+  
+  .header-title {
+    font-size: 1.1rem;
+  }
+  
+  .header-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
   .header-controls {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
   }
   
   .filter-controls {
     width: 100%;
     flex-direction: column;
+    gap: 0.5rem;
   }
   
   .filter-label {
     width: 100%;
     justify-content: space-between;
+    font-size: 0.8rem;
   }
   
   .filter-select {
     width: 100%;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
   }
   
   .bookmark-toggle-btn {
     width: 100%;
     justify-content: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Compact messages area */
+  .messages-container {
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .empty-state {
+    padding: 1.5rem 1rem;
+  }
+  
+  .empty-message {
+    font-size: 1.1rem;
+  }
+  
+  .empty-hint {
+    font-size: 0.85rem;
+  }
+  
+  .suggestion-chips {
+    gap: 0.5rem;
+  }
+  
+  .suggestion-chip {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
   }
   
   .user-message {
     max-width: 90%;
+    padding: 0.7rem 1rem;
+  }
+  
+  .user-message p {
+    font-size: 0.85rem;
+  }
+  
+  .result-card {
+    border-radius: 16px;
+  }
+  
+  .result-header {
+    padding: 0.9rem;
+    gap: 0.5rem;
+  }
+  
+  .result-icon {
+    font-size: 1.1rem;
+  }
+  
+  .result-title {
+    font-size: 0.8rem;
   }
   
   .action-buttons {
-    flex-wrap: wrap;
+    gap: 0.4rem;
+    flex-wrap: nowrap;
+  }
+  
+  .copy-button,
+  .bookmark-button {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.85rem;
+  }
+  
+  .result-body {
+    padding: 0.9rem;
+  }
+  
+  .section-label {
+    font-size: 0.7rem;
+  }
+  
+  .translation-text,
+  .hadith-text {
+    font-size: 0.85rem;
+  }
+  
+  .arabic-text {
+    font-size: 1rem;
+  }
+  
+  /* CRITICAL: Input container must be visible */
+  .input-container {
+    padding: 0.7rem 0.8rem;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .input-wrapper {
+    gap: 0.5rem;
+  }
+  
+  .chat-input {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+    border-radius: 25px;
+  }
+  
+  .send-button {
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 25px;
+    gap: 0.3rem;
+    min-width: 80px;
+  }
+  
+  .search-icon-btn {
+    font-size: 0.9rem;
+  }
+  
+  .processing-message {
+    padding: 0.7rem 1rem;
+  }
+  
+  .processing-message span {
+    font-size: 0.8rem;
+  }
+  
+  .spinner-small {
+    width: 16px;
+    height: 16px;
   }
 }
 
-/* Tablets */
+/* Very Small Mobile Devices (360px and below) */
+@media (max-width: 360px) {
+  .chat-header {
+    padding: 0.6rem 0.7rem;
+  }
+  
+  .bismillah-arabic {
+    font-size: 0.95rem;
+  }
+  
+  .bismillah-english {
+    font-size: 0.7rem;
+  }
+  
+  .header-title {
+    font-size: 1rem;
+  }
+  
+  .header-icon {
+    font-size: 1.2rem;
+  }
+  
+  .input-container {
+    padding: 0.6rem 0.7rem;
+  }
+  
+  .input-wrapper {
+    gap: 0.4rem;
+  }
+  
+  .chat-input {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .chat-input::placeholder {
+    font-size: 0.75rem;
+  }
+  
+  .send-button {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.75rem;
+    min-width: 70px;
+  }
+  
+  .search-icon-btn {
+    font-size: 0.85rem;
+  }
+  
+  .suggestion-chip {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .result-header {
+    padding: 0.8rem;
+  }
+  
+  .result-body {
+    padding: 0.8rem;
+  }
+}
+
+/* Landscape Mobile (896px and below in landscape) */
+@media (max-width: 896px) and (orientation: landscape) {
+  .chat-container {
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  .chat-header {
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .bismillah-container {
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+  
+  .bismillah-arabic {
+    font-size: 0.95rem;
+  }
+  
+  .bismillah-english {
+    font-size: 0.7rem;
+  }
+  
+  .header-title-wrapper {
+    margin-bottom: 0.2rem;
+  }
+  
+  .header-title {
+    font-size: 1rem;
+  }
+  
+  .header-icon {
+    font-size: 1.2rem;
+  }
+  
+  .header-subtitle {
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .header-controls {
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .messages-container {
+    padding: 0.8rem 0.6rem;
+  }
+  
+  .input-container {
+    padding: 0.5rem 0.7rem;
+  }
+  
+  .input-wrapper {
+    gap: 0.4rem;
+  }
+  
+  .chat-input {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .send-button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.75rem;
+  }
+  
+  .empty-state {
+    padding: 1rem;
+  }
+  
+  .suggestion-chips {
+    margin-top: 0.8rem;
+  }
+}
+
+/* Tablets (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .messages-wrapper {
     padding: 0 1rem;
@@ -887,7 +1211,7 @@ html, body {
   }
 }
 
-/* Desktop */
+/* Desktop (1025px and above) */
 @media (min-width: 1025px) {
   .messages-container {
     padding: 2rem;
@@ -902,7 +1226,7 @@ html, body {
   }
 }
 
-/* Large Desktop */
+/* Large Desktop (1440px and above) */
 @media (min-width: 1440px) {
   .header-content,
   .messages-wrapper,
@@ -920,7 +1244,9 @@ html, body {
   .copy-button,
   .bookmark-button,
   .suggestion-chip,
-  .send-button {
+  .send-button,
+  .bookmark-toggle-btn,
+  .filter-select {
     min-height: 44px;
     min-width: 44px;
   }
@@ -931,6 +1257,26 @@ html, body {
   
   .suggestion-chip:active {
     transform: scale(0.95);
+  }
+  
+  .send-button:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+/* iOS Safari Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+  .chat-container {
+    height: -webkit-fill-available;
+  }
+  
+  .input-container {
+    padding-bottom: max(0.7rem, env(safe-area-inset-bottom));
+  }
+  
+  /* Prevent zoom on input focus */
+  .chat-input {
+    font-size: max(16px, 0.85rem);
   }
 }
 
@@ -1074,37 +1420,6 @@ html, body {
   }
 }
 
-/* Landscape Mobile */
-@media (max-width: 896px) and (orientation: landscape) {
-  .chat-header {
-    padding: 0.8rem 1rem;
-  }
-  
-  .bismillah-container {
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  
-  .header-title {
-    font-size: 1.2rem;
-  }
-  
-  .header-subtitle {
-    display: none;
-  }
-  
-.messages-container {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: clamp(1rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
-  position: relative;
-  z-index: 1;
-  min-height: 0; /* ADD THIS - important for flex children */
-}
-}
-
 /* High DPI Screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .result-card {
@@ -1114,363 +1429,4 @@ html, body {
   .user-message {
     box-shadow: 0 4px 16px rgba(102, 126, 234, 0.25);
   }
-}/* Add these CSS rules to fix mobile search button visibility */
-
-/* Input Container - Mobile Fix */
-.input-container {
-  background: white;
-  padding: clamp(0.8rem, 3vw, 1.5rem) clamp(0.8rem, 3vw, 2rem);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-  position: relative;
-  z-index: 10;
-}
-
-.input-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  gap: clamp(0.5rem, 2vw, 1rem);
-  align-items: center; /* Changed from stretch to center */
-  flex-wrap: nowrap; /* Ensure no wrapping */
-}
-
-.chat-input {
-  flex: 1;
-  padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(0.8rem, 3vw, 1.8rem);
-  border: 2px solid #dee2e6;
-  border-radius: 50px;
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  outline: none;
-  transition: var(--transition-smooth);
-  background: #f8f9fa;
-  font-family: inherit;
-  min-width: 0;
-}
-
-.send-button {
-  background: var(--primary-gradient);
-  color: white;
-  border: none;
-  padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1.2rem, 4vw, 2.5rem);
-  border-radius: 50px;
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.3rem, 1.5vw, 0.6rem);
-  transition: var(--transition-smooth);
-  white-space: nowrap;
-  box-shadow: var(--shadow-md);
-  flex-shrink: 0;
-  min-width: fit-content; /* Ensure button doesn't shrink */
-}
-
-/* Mobile Specific Fixes */
-@media (max-width: 480px) {
-  .input-container {
-    padding: 0.8rem;
-  }
-  
-  .input-wrapper {
-    gap: 0.5rem;
-  }
-  
-  .chat-input {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .send-button {
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-    min-width: 80px; /* Ensure minimum width */
-  }
-  
-  .search-icon-btn {
-    font-size: 1rem;
-  }
-  
-  /* Make sure button text doesn't wrap */
-  .send-button {
-    flex-direction: row;
-  }
-}
-
-/* Very small phones */
-@media (max-width: 360px) {
-  .send-button {
-    padding: 0.7rem 0.8rem;
-    font-size: 0.8rem;
-    gap: 0.3rem;
-  }
-  
-  .chat-input {
-    padding: 0.7rem 0.9rem;
-    font-size: 0.85rem;
-  }
-}
-
-/* Landscape Mobile */
-@media (max-width: 896px) and (orientation: landscape) {
-  .input-container {
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .input-wrapper {
-    gap: 0.5rem;
-  }
-  
-  .chat-input {
-    padding: 0.6rem 1rem;
-  }
-  
-  .send-button {
-    padding: 0.6rem 1rem;
-  }
-  /* CRITICAL MOBILE FIXES - Add these to your QuranBot.css */
-
-/* Fix: Ensure chat-container uses proper flex layout */
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  max-height: 100vh;
-  background: var(--primary-gradient);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Fix: Prevent header from being too large */
-.chat-header {
-  background: var(--primary-gradient);
-  color: white;
-  padding: clamp(0.8rem, 3vw, 1.5rem) clamp(0.8rem, 4vw, 2rem);
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  z-index: 10;
-  backdrop-filter: blur(10px);
-  flex-shrink: 0; /* Important: prevents header from shrinking */
-}
-
-/* Fix: Messages container should flex properly */
-.messages-container {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: clamp(0.8rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
-  position: relative;
-  z-index: 1;
-  min-height: 0; /* Critical for flex children */
-}
-
-/* Fix: Input container must always be visible at bottom */
-.input-container {
-  background: white;
-  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.75rem, 2vw, 2rem);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-  position: relative;
-  z-index: 10;
-  flex-shrink: 0; /* Critical: prevents input from being hidden */
-}
-
-.input-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.chat-input {
-  flex: 1;
-  padding: 0.8rem 1rem;
-  border: 2px solid #dee2e6;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  outline: none;
-  transition: var(--transition-smooth);
-  background: #f8f9fa;
-  font-family: inherit;
-  min-width: 0;
-}
-
-.send-button {
-  background: var(--primary-gradient);
-  color: white;
-  border: none;
-  padding: 0.8rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  transition: var(--transition-smooth);
-  white-space: nowrap;
-  box-shadow: var(--shadow-md);
-  flex-shrink: 0;
-  min-width: fit-content;
-}
-
-/* Mobile Specific - Most Important */
-@media (max-width: 480px) {
-  .chat-container {
-    height: 100vh;
-    height: 100dvh; /* Use dynamic viewport height */
-  }
-  
-  .chat-header {
-    padding: 0.8rem;
-  }
-  
-  .messages-container {
-    padding: 0.8rem 0.5rem;
-  }
-  
-  .input-container {
-    padding: 0.7rem;
-    border-top: 1px solid #dee2e6;
-  }
-  
-  .input-wrapper {
-    gap: 0.4rem;
-  }
-  
-  .chat-input {
-    padding: 0.7rem 0.9rem;
-    font-size: 0.85rem;
-    border-radius: 25px;
-  }
-  
-  .send-button {
-    padding: 0.7rem 1rem;
-    font-size: 0.8rem;
-    border-radius: 25px;
-    gap: 0.3rem;
-  }
-  
-  .search-icon-btn {
-    font-size: 0.9rem;
-  }
-  
-  /* Reduce header elements size */
-  .bismillah-arabic {
-    font-size: 1.1rem;
-  }
-  
-  .bismillah-english {
-    font-size: 0.75rem;
-  }
-  
-  .header-title {
-    font-size: 1.2rem;
-  }
-  
-  .header-icon {
-    font-size: 1.5rem;
-  }
-  
-  .header-controls {
-    gap: 0.6rem;
-  }
-  
-  .filter-controls {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-  }
-  
-  .filter-label {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .filter-select {
-    width: 100%;
-    padding: 0.5rem 0.8rem;
-  }
-  
-  .bookmark-toggle-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 0.6rem 1rem;
-  }
-}
-
-/* Very small phones (320px - 360px) */
-@media (max-width: 360px) {
-  .input-wrapper {
-    gap: 0.3rem;
-  }
-  
-  .chat-input {
-    padding: 0.65rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  
-  .send-button {
-    padding: 0.65rem 0.9rem;
-    font-size: 0.75rem;
-  }
-  
-  .chat-input::placeholder {
-    font-size: 0.75rem;
-  }
-}
-
-/* Landscape Mobile Fix */
-@media (max-width: 896px) and (orientation: landscape) {
-  .chat-header {
-    padding: 0.5rem 0.8rem;
-  }
-  
-  .bismillah-container {
-    margin-bottom: 0.3rem;
-    padding-bottom: 0.3rem;
-  }
-  
-  .header-title {
-    font-size: 1rem;
-  }
-  
-  .header-subtitle {
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .header-controls {
-    margin-top: 0.5rem;
-  }
-  
-  .input-container {
-    padding: 0.5rem 0.7rem;
-  }
-  
-  .chat-input {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  
-  .send-button {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.75rem;
-  }
-}
-
-/* Fix for iOS Safari bottom bar */
-@supports (-webkit-touch-callout: none) {
-  .chat-container {
-    height: -webkit-fill-available;
-  }
-  
-  .input-container {
-    padding-bottom: max(0.7rem, env(safe-area-inset-bottom));
-  }
-}
 }
