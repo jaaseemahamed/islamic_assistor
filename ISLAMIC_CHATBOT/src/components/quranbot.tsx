@@ -19,6 +19,29 @@ const QuranBot: React.FC = () => {
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Critical: Fix iOS viewport height issue
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.height = '100%';
+    
+    return () => {
+      window.removeEventListener('resize', setVh);
+      window.removeEventListener('orientationchange', setVh);
+    };
+  }, []);
+
   useEffect(() => {
     const initializeService = async () => {
       try {
@@ -36,14 +59,14 @@ const QuranBot: React.FC = () => {
     initializeService();
   }, []);
 
- const scrollToBottom = () => {
-  if (messagesEndRef.current) {
-    const container = messagesEndRef.current.closest('.messages-container');
-    if (container) {
-      container.scrollTop = container.scrollHeight;
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      const container = messagesEndRef.current.closest('.messages-container');
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+      }
     }
-  }
-};
+  };
 
   useEffect(() => {
     scrollToBottom();
@@ -147,6 +170,63 @@ const QuranBot: React.FC = () => {
     }
   };
 
+  // Critical inline styles for mobile
+  const containerStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    maxHeight: '100vh',
+    width: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: 'hidden'
+  };
+
+  const headerStyle: React.CSSProperties = {
+    flexShrink: 0,
+    flexGrow: 0,
+    overflowY: 'auto',
+    maxHeight: '40vh'
+  };
+
+  const messagesStyle: React.CSSProperties = {
+    flex: '1 1 auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    WebkitOverflowScrolling: 'touch',
+    minHeight: 0
+  };
+
+  const inputContainerStyle: React.CSSProperties = {
+    flexShrink: 0,
+    flexGrow: 0,
+    position: 'relative',
+    zIndex: 100,
+    minHeight: '60px'
+  };
+
+  const inputWrapperStyle: React.CSSProperties = {
+    display: 'flex',
+    gap: '0.5rem',
+    alignItems: 'center',
+    flexWrap: 'nowrap'
+  };
+
+  const inputStyle: React.CSSProperties = {
+    flex: '1 1 auto',
+    minWidth: 0,
+    fontSize: '16px'
+  };
+
+  const buttonStyle: React.CSSProperties = {
+    flexShrink: 0,
+    flexGrow: 0,
+    minWidth: 'fit-content'
+  };
+
   if (isLoading) {
     return (
       <div className="loading-screen">
@@ -178,8 +258,8 @@ const QuranBot: React.FC = () => {
   }
 
   return (
-    <div className="chat-container">
-      <div className="chat-header">
+    <div className="chat-container" style={containerStyle}>
+      <div className="chat-header" style={headerStyle}>
         <div className="header-content">
           <div className="bismillah-container">
             <p className="bismillah-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
@@ -228,7 +308,7 @@ const QuranBot: React.FC = () => {
         </div>
       </div>
 
-      <div className="messages-container">
+      <div className="messages-container" style={messagesStyle}>
         <div className="messages-wrapper">
           {showBookmarks ? (
             <div className="bookmarks-view">
@@ -464,21 +544,23 @@ const QuranBot: React.FC = () => {
         </div>
       </div>
 
-      <div className="input-container">
-        <div className="input-wrapper">
+      <div className="input-container" style={inputContainerStyle}>
+        <div className="input-wrapper" style={inputWrapperStyle}>
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask about Quran verses or Hadiths... (e.g., 'prayer', 'Surah 2:255')"
+            placeholder="Ask about Quran verses or Hadiths..."
             disabled={isProcessing || showBookmarks}
             className="chat-input"
+            style={inputStyle}
           />
           <button
             onClick={() => handleUserInput()}
             disabled={isProcessing || !input.trim() || showBookmarks}
             className="send-button"
+            style={buttonStyle}
           >
             {isProcessing ? (
               <>

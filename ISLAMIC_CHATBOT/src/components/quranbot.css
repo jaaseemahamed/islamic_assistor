@@ -1,5 +1,10 @@
 /* Premium QuranBot Styles - Fully Responsive - MOBILE FIXED */
-
+.chat-container {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100); /* Fallback for mobile */
+  max-height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
+}
 /* CRITICAL: Reset and base styles */
 * {
   margin: 0;
