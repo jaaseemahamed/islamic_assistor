@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import nlpService from '../services/nlpservice';
 import type { Message, SearchResult } from '../types';
 import { isQuranVerse } from '../types';
-import './QuranBot.css';
+import './quranbot.css';
 
 const QuranBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
