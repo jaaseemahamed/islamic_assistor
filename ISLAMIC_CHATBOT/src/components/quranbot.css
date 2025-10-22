@@ -1106,4 +1106,119 @@ html, body {
   .user-message {
     box-shadow: 0 4px 16px rgba(102, 126, 234, 0.25);
   }
+}/* Add these CSS rules to fix mobile search button visibility */
+
+/* Input Container - Mobile Fix */
+.input-container {
+  background: white;
+  padding: clamp(0.8rem, 3vw, 1.5rem) clamp(0.8rem, 3vw, 2rem);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 10;
+}
+
+.input-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  align-items: center; /* Changed from stretch to center */
+  flex-wrap: nowrap; /* Ensure no wrapping */
+}
+
+.chat-input {
+  flex: 1;
+  padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(0.8rem, 3vw, 1.8rem);
+  border: 2px solid #dee2e6;
+  border-radius: 50px;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  outline: none;
+  transition: var(--transition-smooth);
+  background: #f8f9fa;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.send-button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1.2rem, 4vw, 2.5rem);
+  border-radius: 50px;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.3rem, 1.5vw, 0.6rem);
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+  min-width: fit-content; /* Ensure button doesn't shrink */
+}
+
+/* Mobile Specific Fixes */
+@media (max-width: 480px) {
+  .input-container {
+    padding: 0.8rem;
+  }
+  
+  .input-wrapper {
+    gap: 0.5rem;
+  }
+  
+  .chat-input {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .send-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    min-width: 80px; /* Ensure minimum width */
+  }
+  
+  .search-icon-btn {
+    font-size: 1rem;
+  }
+  
+  /* Make sure button text doesn't wrap */
+  .send-button {
+    flex-direction: row;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .send-button {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.8rem;
+    gap: 0.3rem;
+  }
+  
+  .chat-input {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-width: 896px) and (orientation: landscape) {
+  .input-container {
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .input-wrapper {
+    gap: 0.5rem;
+  }
+  
+  .chat-input {
+    padding: 0.6rem 1rem;
+  }
+  
+  .send-button {
+    padding: 0.6rem 1rem;
+  }
 }
