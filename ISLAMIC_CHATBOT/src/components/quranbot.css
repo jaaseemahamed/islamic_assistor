@@ -1221,4 +1221,248 @@ html, body {
   .send-button {
     padding: 0.6rem 1rem;
   }
+  /* CRITICAL MOBILE FIXES - Add these to your QuranBot.css */
+
+/* Fix: Ensure chat-container uses proper flex layout */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  background: var(--primary-gradient);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fix: Prevent header from being too large */
+.chat-header {
+  background: var(--primary-gradient);
+  color: white;
+  padding: clamp(0.8rem, 3vw, 1.5rem) clamp(0.8rem, 4vw, 2rem);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0; /* Important: prevents header from shrinking */
+}
+
+/* Fix: Messages container should flex properly */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: clamp(0.8rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
+  position: relative;
+  z-index: 1;
+  min-height: 0; /* Critical for flex children */
+}
+
+/* Fix: Input container must always be visible at bottom */
+.input-container {
+  background: white;
+  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.75rem, 2vw, 2rem);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0; /* Critical: prevents input from being hidden */
+}
+
+.input-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 2px solid #dee2e6;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition-smooth);
+  background: #f8f9fa;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.send-button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+/* Mobile Specific - Most Important */
+@media (max-width: 480px) {
+  .chat-container {
+    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height */
+  }
+  
+  .chat-header {
+    padding: 0.8rem;
+  }
+  
+  .messages-container {
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .input-container {
+    padding: 0.7rem;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .input-wrapper {
+    gap: 0.4rem;
+  }
+  
+  .chat-input {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+    border-radius: 25px;
+  }
+  
+  .send-button {
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 25px;
+    gap: 0.3rem;
+  }
+  
+  .search-icon-btn {
+    font-size: 0.9rem;
+  }
+  
+  /* Reduce header elements size */
+  .bismillah-arabic {
+    font-size: 1.1rem;
+  }
+  
+  .bismillah-english {
+    font-size: 0.75rem;
+  }
+  
+  .header-title {
+    font-size: 1.2rem;
+  }
+  
+  .header-icon {
+    font-size: 1.5rem;
+  }
+  
+  .header-controls {
+    gap: 0.6rem;
+  }
+  
+  .filter-controls {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  
+  .filter-label {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .filter-select {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .bookmark-toggle-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Very small phones (320px - 360px) */
+@media (max-width: 360px) {
+  .input-wrapper {
+    gap: 0.3rem;
+  }
+  
+  .chat-input {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .send-button {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.75rem;
+  }
+  
+  .chat-input::placeholder {
+    font-size: 0.75rem;
+  }
+}
+
+/* Landscape Mobile Fix */
+@media (max-width: 896px) and (orientation: landscape) {
+  .chat-header {
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .bismillah-container {
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+  
+  .header-title {
+    font-size: 1rem;
+  }
+  
+  .header-subtitle {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header-controls {
+    margin-top: 0.5rem;
+  }
+  
+  .input-container {
+    padding: 0.5rem 0.7rem;
+  }
+  
+  .chat-input {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .send-button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Fix for iOS Safari bottom bar */
+@supports (-webkit-touch-callout: none) {
+  .chat-container {
+    height: -webkit-fill-available;
+  }
+  
+  .input-container {
+    padding-bottom: max(0.7rem, env(safe-area-inset-bottom));
+  }
+}
 }
